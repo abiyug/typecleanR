@@ -1,0 +1,59 @@
+```markdown
+---
+output: github_document
+---
+
+# typecleanR
+
+**A tidyverse-friendly toolkit for smart type cleaning.**
+
+Helps analysts quickly transform messy real-world columns into reliable `numeric`, `Date`/`POSIXct`, and `logical` formats.
+
+## Installation
+
+```r
+# Install from GitHub
+devtools::install_github("yourusername/typecleanR")
+```
+
+## Quick Start
+
+```r
+library(devtools)
+load_all()          # during development
+# or after installation: library(typecleanR)
+
+library(dplyr)
+
+# Recommended: one-step cleaning
+clean_types(toy_df)
+```
+
+## Example
+
+```{r, message=FALSE}
+library(devtools)
+load_all()
+library(dplyr)
+
+toy_df
+
+clean_types(toy_df)
+```
+
+## Main Functions
+
+- **`clean_types(.data)`** — Smart all-in-one cleaner (recommended)
+- `as_numeric_if_all(x)` — Only converts if **all** non-NA values look numeric
+- `as_date_if_all(x, format = "%m/%d/%Y")` — Strict date conversion
+- `as_logical_if_all(x)` — Supports TRUE/FALSE/T/F/Yes/No/Y/N
+- `as_datetime_lenient(x)` — Forgiving datetime parser
+
+## Philosophy
+
+- Conservative and safe by default  
+- Only converts when confident  
+- Works great with `dplyr::across()` and pipes  
+- Designed for real messy data from Excel, CSVs, etc.
+
+```
