@@ -9,7 +9,7 @@ Helps analysts quickly transform messy real-world columns into reliable `numeric
 
 ```r
 # Install from GitHub
-devtools::install_github("yourusername/typecleanR")
+devtools::install_github("abiyug/typecleanR")
 ```
 
 ## Quick Start
