@@ -1,9 +1,4 @@
 
-``` markdown
----
-output: github_document
----
-
 # typecleanR
 
 **A tidyverse-friendly toolkit for smart type cleaning.**
