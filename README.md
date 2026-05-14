@@ -3,11 +3,12 @@
 
 **A tidyverse-friendly toolkit for smart type cleaning.**
 
-Helps analysts quickly transform messy real-world columns into reliable `numeric`, `Date`/`POSIXct`, and `logical` formats.
+Helps analysts quickly transform messy real-world columns into reliable
+`numeric`, `Date`/`POSIXct`, and `logical` formats.
 
 ## Installation
 
-```r
+``` r
 # Install from GitHub
 devtools::install_github("abiyug/typecleanR")
 ```
@@ -15,10 +16,7 @@ devtools::install_github("abiyug/typecleanR")
 ## Quick Start
 
 ``` r
-library(devtools)
-load_all()          # during development
-# or after installation: library(typecleanR)
-
+library(typecleanR)
 library(dplyr)
 
 # Recommended: one-step cleaning
@@ -28,10 +26,22 @@ clean_types(toy_df)
 ## Example
 
 ``` r
-library(devtools)
-load_all()
+library(typecleanR)
 library(dplyr)
+```
 
+    ## 
+    ## Attaching package: 'dplyr'
+
+    ## The following objects are masked from 'package:stats':
+    ## 
+    ##     filter, lag
+
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     intersect, setdiff, setequal, union
+
+``` r
 toy_df
 ```
 
@@ -72,5 +82,3 @@ clean_types(toy_df)
 - Only converts when confident  
 - Works great with `dplyr::across()` and pipes  
 - Designed for real messy data from Excel, CSVs, etc.
-
-\`\`\`

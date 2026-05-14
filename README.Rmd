@@ -1,4 +1,3 @@
-```markdown
 ---
 output: github_document
 ---
@@ -13,16 +12,13 @@ Helps analysts quickly transform messy real-world columns into reliable `numeric
 
 ```r
 # Install from GitHub
-devtools::install_github("yourusername/typecleanR")
+devtools::install_github("abiyug/typecleanR")
 ```
 
 ## Quick Start
 
 ```r
-library(devtools)
-load_all()          # during development
-# or after installation: library(typecleanR)
-
+library(typecleanR)
 library(dplyr)
 
 # Recommended: one-step cleaning
@@ -31,9 +27,8 @@ clean_types(toy_df)
 
 ## Example
 
-```{r, message=FALSE}
-library(devtools)
-load_all()
+```{r}
+library(typecleanR)
 library(dplyr)
 
 toy_df
@@ -56,4 +51,3 @@ clean_types(toy_df)
 - Works great with `dplyr::across()` and pipes  
 - Designed for real messy data from Excel, CSVs, etc.
 
-```
