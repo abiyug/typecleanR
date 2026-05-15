@@ -1,0 +1,16 @@
+# Vignette intermediates
+^doc$
+^Meta$
+
+# Temporary files
+^README\.html$
+^\.gitignore$
+^%$
+
+# Development files
+^.*\.Rproj$
+^\.Rproj\.user$
+^README\.Rmd\.bak$
+
+# Hidden files
+^\..*$
