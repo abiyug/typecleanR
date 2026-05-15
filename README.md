@@ -1,4 +1,9 @@
 # typecleanR
+[![R-CMD-check](https://github.com/abiyug/typecleanR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/abiyug/typecleanR/actions/workflows/R-CMD-check.yaml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![CRAN status](https://www.r-pkg.org/badges/version/typecleanR)](https://CRAN.R-project.org/package=typecleanR)
+[![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/typecleanR)](https://CRAN.R-project.org/package=typecleanR)
+
 
 **typecleanR** is a tidyverse‑friendly toolkit for safely coercing messy columns into consistent numeric, date, logical, and datetime formats. It’s designed for reproducible analytics and preparing prompts for **LLM orchestration** reducing hallucinations and strengthening guardrails with a golden enriched dataset.
 
@@ -61,7 +66,7 @@ toy_df
 | `as_logical_if_all()`      | Flexible logical conversion                      | Yes/No, T/F, True/False      |
 | `as_datetime_lenient()`    | Forgiving datetime parser                        | Messy dates                  |
 
-
+>  Coming soon: additional helpers for factors, categorical variables, and text normalization.
 
 ## Philosophy
 
