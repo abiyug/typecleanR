@@ -1,48 +1,78 @@
----
-output: github_document
----
-
 # typecleanR
+[![R-CMD-check](https://github.com/abiyug/typecleanR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/abiyug/typecleanR/actions/workflows/R-CMD-check.yaml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+<!-- CRAN badge will be added once published -->
+<!-- Downloads badge will be added once published -->
 
-**A tidyverse-friendly toolkit for smart type cleaning.**
 
-Helps analysts quickly transform messy real-world columns into reliable `numeric`, `Date`/`POSIXct`, and `logical` formats.
+**typecleanR** is a tidyverse‑friendly toolkit for safely coercing messy columns into consistent numeric, date, logical, and datetime formats. It’s designed for reproducible analytics and preparing prompts for **LLM orchestration** reducing hallucinations and strengthening guardrails with a golden enriched dataset.
+
+Helps analysts quickly transform messy real-world columns into reliable `numeric`, `Date`/`POSIXct`, and `logical` formats — **safely and predictably**.
+
+![R](https://img.shields.io/badge/R-276DC3?logo=r&logoColor=white)
+[![GitHub](https://img.shields.io/badge/GitHub-abiyug/typecleanR-blue?logo=github)](https://github.com/abiyug/typecleanR)
+
+Helps analysts quickly transform messy real-world columns into reliable `numeric`, `Date`/`POSIXct`, and `logical` formats — safely and predictably.
 
 ## Installation
 
 ```r
-# Install from GitHub
 devtools::install_github("abiyug/typecleanR")
 ```
 
-## Quick Start
-
-```r
-library(typecleanR)
-library(dplyr)
-
-# Recommended: one-step cleaning
-clean_types(toy_df)
-```
-
-## Example
-
+## Getting Start
+The package ships with a built‑in dataset toy_data that mimics real‑world quirks: numbers stored as text, dates in mixed formats, and logical flags in inconsistent forms.
 ```{r}
 library(typecleanR)
 library(dplyr)
 
-toy_df
-
+# One-step cleaning
 clean_types(toy_df)
 ```
 
+## Viewing the Vignette
+
+After installing the package, you can read the full **Getting Started** guide with examples:
+
+```r
+# Open the vignette in your browser
+vignette("typecleanR", package = "typecleanR")
+```
+
+Or browse the vignette directly on GitHub:  
+**[Getting Started Vignette](https://github.com/abiyug/typecleanR/blob/master/inst/doc/typecleanR.html)**
+
+## Example
+
+```{r}
+toy_df
+```
+
+**After `clean_types(toy_df)`:**
+
+- `Cost_Basis` → stays character (contains "Gain")
+- `Sale_date` → `POSIXct`
+- `Flag` → `logical`
+- `Quantity` → stays numeric
+
+
 ## Main Functions
 
-- **`clean_types(.data)`** — Smart all-in-one cleaner (recommended)
-- `as_numeric_if_all(x)` — Only converts if **all** non-NA values look numeric
-- `as_date_if_all(x, format = "%m/%d/%Y")` — Strict date conversion
-- `as_logical_if_all(x)` — Supports TRUE/FALSE/T/F/Yes/No/Y/N
-- `as_datetime_lenient(x)` — Forgiving datetime parser
+| Function                    | Description                                      | Best For                     |
+|----------------------------|--------------------------------------------------|------------------------------|
+| `clean_types()`            | All-in-one smart cleaner (recommended)           | Everyday use                 |
+| `as_numeric_if_all()`      | Safe numeric conversion                          | Numbers with text mixed in   |
+| `as_date_if_all()`         | Strict date conversion                           | Known date formats           |
+| `as_logical_if_all()`      | Flexible logical conversion                      | Yes/No, T/F, True/False      |
+| `as_datetime_lenient()`    | Forgiving datetime parser                        | Messy dates                  |
+
+>  Coming soon: additional helpers for factors, categorical variables, and text normalization.
+
+## Philosophy
+
+- Conservative by default — only converts when confident
+- Works great inside `dplyr` pipelines
+- Designed for real messy data from Excel, CSVs, surveys, etc.
 
 ## Philosophy
 
@@ -50,4 +80,21 @@ clean_types(toy_df)
 - Only converts when confident  
 - Works great with `dplyr::across()` and pipes  
 - Designed for real messy data from Excel, CSVs, etc.
+
+## 🛠 Roadmap
+
+Upcoming coercion helpers and features:
+
+- **Factor coercion** → Detect categorical text columns (few unique values, repeated patterns) and convert them to factors. Useful for modeling and plotting.  
+- **Integer coercion** → Distinguish between whole numbers and decimals. If all values are integers, coerce to integer instead of numeric.  
+- **Datetime coercion** → Handle timestamp strings (`YYYY-MM-DD HH:MM:SS`) and convert to POSIXct. Different from pure Date.  
+- **Currency coercion** → Detect strings with symbols like $, €, ETB and strip them before numeric conversion. Keeps financial data clean.  
+- **Percentage coercion** → Convert `"45%"` into `0.45` or `45` depending on convention. Often messy in survey data.  
+- **Boolean coercion** → Extend logical detection to `"Yes"/"No"`, `"Y"/"N"`, `"1"/"0"`. Broader than just `"TRUE"/"FALSE"`.  
+- **Empty string coercion** → Treat `""` as `NA` consistently, especially in CSV imports where blanks sneak in.  
+- **Scientific notation coercion** → Detect `"1.23e4"` style strings and convert safely to numeric.  
+- **pkgdown site** → Browsable documentation with vignette and function reference.  
+- **CRAN release** → Publish package and enable CRAN + downloads badges.  
+- **Community contributions** → Feedback, new coercion helpers, and real‑world test cases.  
+
 
