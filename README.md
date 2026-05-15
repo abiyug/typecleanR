@@ -1,119 +1,72 @@
-
 # typecleanR
-
 [![R-CMD-check](https://github.com/abiyug/typecleanR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/abiyug/typecleanR/actions/workflows/R-CMD-check.yaml)
-[![License:
-MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 <!-- CRAN badge will be added once published -->
 <!-- Downloads badge will be added once published -->
 
-**typecleanR** is a tidyverse‑friendly toolkit for safely coercing messy
-columns into consistent numeric, date, logical, and datetime formats.
-It’s designed for reproducible analytics and preparing prompts for **LLM
-orchestration** reducing hallucinations and strengthening guardrails
-with a golden enriched dataset.
 
-Helps analysts quickly transform messy real-world columns into reliable
-`numeric`, `Date`/`POSIXct`, and `logical` formats — **safely and
-predictably**.
+**typecleanR** is a tidyverse‑friendly toolkit for safely coercing messy columns into consistent numeric, date, logical, and datetime formats. It’s designed for reproducible analytics and preparing prompts for **LLM orchestration** reducing hallucinations and strengthening guardrails with a golden enriched dataset.
+
+Helps analysts quickly transform messy real-world columns into reliable `numeric`, `Date`/`POSIXct`, and `logical` formats — **safely and predictably**.
 
 ![R](https://img.shields.io/badge/R-276DC3?logo=r&logoColor=white)
 [![GitHub](https://img.shields.io/badge/GitHub-abiyug/typecleanR-blue?logo=github)](https://github.com/abiyug/typecleanR)
 
-Helps analysts quickly transform messy real-world columns into reliable
-`numeric`, `Date`/`POSIXct`, and `logical` formats — safely and
-predictably.
+Helps analysts quickly transform messy real-world columns into reliable `numeric`, `Date`/`POSIXct`, and `logical` formats — safely and predictably.
 
 ## Installation
 
-``` r
+```r
 devtools::install_github("abiyug/typecleanR")
 ```
 
 ## Getting Start
-
-The package ships with a built‑in dataset toy_data that mimics
-real‑world quirks: numbers stored as text, dates in mixed formats, and
-logical flags in inconsistent forms.
-
-``` r
+The package ships with a built‑in dataset toy_data that mimics real‑world quirks: numbers stored as text, dates in mixed formats, and logical flags in inconsistent forms.
+```r
 library(typecleanR)
 library(dplyr)
-```
 
-    ## 
-    ## Attaching package: 'dplyr'
-
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
-
-``` r
 # One-step cleaning
 clean_types(toy_df)
 ```
 
-    ## # A tibble: 5 × 5
-    ##   Cost_Basis Sale_date           Flag  Quantity Notes
-    ##   <chr>      <dttm>              <lgl>    <dbl> <chr>
-    ## 1 3363.14    2026-05-08 00:00:00 TRUE        18 Alpha
-    ## 2 2946.65    2026-05-08 00:00:00 FALSE        7 123  
-    ## 3 1971.32    2026-05-08 00:00:00 TRUE         3 Beta 
-    ## 4 <NA>       NA                  FALSE       NA <NA> 
-    ## 5 Gain       NA                  TRUE        55 Gamma
-
 ## Viewing the Vignette
 
-After installing the package, you can read the full **Getting Started**
-guide with examples:
+After installing the package, you can read the full **Getting Started** guide with examples:
 
-``` r
+```r
 # Open the vignette in your browser
 vignette("typecleanR", package = "typecleanR")
 ```
 
 Or browse the vignette directly on GitHub:  
-**[Getting Started
-Vignette](https://github.com/abiyug/typecleanR/blob/master/inst/doc/typecleanR.html)**
+**[Getting Started Vignette](https://github.com/abiyug/typecleanR/blob/master/inst/doc/typecleanR.html)**
 
 ## Example
 
-``` r
+```r
 toy_df
 ```
 
-    ## # A tibble: 5 × 5
-    ##   Cost_Basis Sale_date  Flag  Quantity Notes
-    ##   <chr>      <chr>      <chr>    <dbl> <chr>
-    ## 1 3363.14    05/08/2026 TRUE        18 Alpha
-    ## 2 2946.65    5/8/2026   FALSE        7 123  
-    ## 3 1971.32    2026-05-08 T            3 Beta 
-    ## 4 <NA>       <NA>       F           NA <NA> 
-    ## 5 Gain       NotADate   Yes         55 Gamma
-
 **After `clean_types(toy_df)`:**
 
-- `Cost_Basis` → stays character (contains “Gain”)
+- `Cost_Basis` → stays character (contains "Gain")
 - `Sale_date` → `POSIXct`
 - `Flag` → `logical`
 - `Quantity` → stays numeric
 
+
 ## Main Functions
 
-| Function | Description | Best For |
-|----|----|----|
-| `clean_types()` | All-in-one smart cleaner (recommended) | Everyday use |
-| `as_numeric_if_all()` | Safe numeric conversion | Numbers with text mixed in |
-| `as_date_if_all()` | Strict date conversion | Known date formats |
-| `as_logical_if_all()` | Flexible logical conversion | Yes/No, T/F, True/False |
-| `as_datetime_lenient()` | Forgiving datetime parser | Messy dates |
+| Function                    | Description                                      | Best For                     |
+|----------------------------|--------------------------------------------------|------------------------------|
+| `clean_types()`            | All-in-one smart cleaner (recommended)           | Everyday use                 |
+| `as_numeric_if_all()`      | Safe numeric conversion                          | Numbers with text mixed in   |
+| `as_date_if_all()`         | Strict date conversion                           | Known date formats           |
+| `as_logical_if_all()`      | Flexible logical conversion                      | Yes/No, T/F, True/False      |
+| `as_datetime_lenient()`    | Forgiving datetime parser                        | Messy dates                  |
 
-> Coming soon: additional helpers for factors, categorical variables,
-> and text normalization.
+>  Coming soon: additional helpers for factors, categorical variables, and text normalization.
 
 ## Philosophy
 
@@ -132,28 +85,16 @@ toy_df
 
 Upcoming coercion helpers and features:
 
-- **Factor coercion** → Detect categorical text columns (few unique
-  values, repeated patterns) and convert them to factors. Useful for
-  modeling and plotting.  
-- **Integer coercion** → Distinguish between whole numbers and decimals.
-  If all values are integers, coerce to integer instead of numeric.  
-- **Datetime coercion** → Handle timestamp strings
-  (`YYYY-MM-DD HH:MM:SS`) and convert to POSIXct. Different from pure
-  Date.  
-- **Currency coercion** → Detect strings with symbols like \$, €, ETB
-  and strip them before numeric conversion. Keeps financial data
-  clean.  
-- **Percentage coercion** → Convert `"45%"` into `0.45` or `45`
-  depending on convention. Often messy in survey data.  
-- **Boolean coercion** → Extend logical detection to `"Yes"/"No"`,
-  `"Y"/"N"`, `"1"/"0"`. Broader than just `"TRUE"/"FALSE"`.  
-- **Empty string coercion** → Treat `""` as `NA` consistently,
-  especially in CSV imports where blanks sneak in.  
-- **Scientific notation coercion** → Detect `"1.23e4"` style strings and
-  convert safely to numeric.  
-- **pkgdown site** → Browsable documentation with vignette and function
-  reference.  
-- **CRAN release** → Publish package and enable CRAN + downloads
-  badges.  
-- **Community contributions** → Feedback, new coercion helpers, and
-  real‑world test cases.
+- **Factor coercion** → Detect categorical text columns (few unique values, repeated patterns) and convert them to factors. Useful for modeling and plotting.  
+- **Integer coercion** → Distinguish between whole numbers and decimals. If all values are integers, coerce to integer instead of numeric.  
+- **Datetime coercion** → Handle timestamp strings (`YYYY-MM-DD HH:MM:SS`) and convert to POSIXct. Different from pure Date.  
+- **Currency coercion** → Detect strings with symbols like $, €, ETB and strip them before numeric conversion. Keeps financial data clean.  
+- **Percentage coercion** → Convert `"45%"` into `0.45` or `45` depending on convention. Often messy in survey data.  
+- **Boolean coercion** → Extend logical detection to `"Yes"/"No"`, `"Y"/"N"`, `"1"/"0"`. Broader than just `"TRUE"/"FALSE"`.  
+- **Empty string coercion** → Treat `""` as `NA` consistently, especially in CSV imports where blanks sneak in.  
+- **Scientific notation coercion** → Detect `"1.23e4"` style strings and convert safely to numeric.  
+- **pkgdown site** → Browsable documentation with vignette and function reference.  
+- **CRAN release** → Publish package and enable CRAN + downloads badges.  
+- **Community contributions** → Feedback, new coercion helpers, and real‑world test cases.  
+
+
