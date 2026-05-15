@@ -1,16 +1,21 @@
-# Vignette intermediates
-^doc$
-^Meta$
-
-# Temporary files
-^README\.html$
-^\.gitignore$
-^%$
-
 # Development files
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^\.Rhistory$
+^\.RData$
+^README\.html$
 ^README\.Rmd\.bak$
+
+# Build artifacts
+^doc$
+^Meta$
+^inst/doc/.*\.R$     # Don't include source copies if not needed
+
+# Temporary / junk
+^%$
+^\.gitignore$
+^.*\.md~$
+^.*\.html$
 
 # Hidden files
 ^\..*$
