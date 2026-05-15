@@ -1,6 +1,8 @@
 # typecleanR
 [![R-CMD-check](https://github.com/abiyug/typecleanR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/abiyug/typecleanR/actions/workflows/R-CMD-check.yaml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![R](https://img.shields.io/badge/R-276DC3?logo=r&logoColor=white)
+[![GitHub](https://img.shields.io/badge/GitHub-abiyug/typecleanR-blue?logo=github)](https://github.com/abiyug/typecleanR)
 <!-- CRAN badge will be added once published -->
 <!-- Downloads badge will be added once published -->
 
@@ -9,10 +11,6 @@
 
 Helps analysts quickly transform messy real-world columns into reliable `numeric`, `Date`/`POSIXct`, and `logical` formats — **safely and predictably**.
 
-![R](https://img.shields.io/badge/R-276DC3?logo=r&logoColor=white)
-[![GitHub](https://img.shields.io/badge/GitHub-abiyug/typecleanR-blue?logo=github)](https://github.com/abiyug/typecleanR)
-
-Helps analysts quickly transform messy real-world columns into reliable `numeric`, `Date`/`POSIXct`, and `logical` formats — safely and predictably.
 
 ## Installation
 
