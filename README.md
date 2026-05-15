@@ -35,7 +35,7 @@ vignette("typecleanR", package = "typecleanR")
 ```
 
 Or browse the vignette directly on GitHub:  
-**[Getting Started Vignette](https://github.com/abiyug/typecleanR/blob/main/inst/doc/typecleanR.html)**
+**[Getting Started Vignette](https://github.com/abiyug/typecleanR/blob/master/inst/doc/typecleanR.html)**
 
 ## Example
 
