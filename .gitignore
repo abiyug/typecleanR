@@ -1,8 +1,24 @@
+# R specific
 .Rhistory
 .RData
 .Rproj.user
+*.Rproj
+.Ruserdata
+
+# Build artifacts
+doc/
+Meta/
+inst/doc/
+
+# Temporary files
+README.html
 *.html
-.Rdata
-.httr-oauth
+*.md~
+*.Rmd~
+
+# OS files
 .DS_Store
-.quarto
+Thumbs.db
+
+# Random junk
+%

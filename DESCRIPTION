@@ -18,3 +18,7 @@ Depends:
 LazyData: true
 URL: https://github.com/abiyug/typecleanR
 BugReports: https://github.com/abiyug/typecleanR/issues
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
