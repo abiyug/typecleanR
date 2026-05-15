@@ -72,12 +72,6 @@ toy_df
 - Works great inside `dplyr` pipelines
 - Designed for real messy data from Excel, CSVs, surveys, etc.
 
-## Philosophy
-
-- Conservative and safe by default  
-- Only converts when confident  
-- Works great with `dplyr::across()` and pipes  
-- Designed for real messy data from Excel, CSVs, etc.
 
 ## 🛠 Roadmap
 
