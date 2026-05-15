@@ -1,0 +1,149 @@
+---
+title: "Getting Started with typecleanR"
+author: "Abiyu Giday"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_document:
+    theme: journal
+    toc: true
+    toc_depth: 2
+    number_sections: true
+    fig_width: 6
+    fig_height: 4
+    df_print: kable
+    highlight: kate
+vignette: >
+  %\VignetteIndexEntry{Getting Started with typecleanR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "figures/"
+)
+library(dplyr)
+library(typecleanR)
+```
+
+# Introduction
+
+Data in the real world is rarely clean. Columns arrive with numbers stored as text, dates in multiple formats, and logical flags written in every possible variation. These inconsistencies slow down analysis, break pipelines, and make it harder to prepare datasets for advanced workflows.
+
+The **typecleanR** package was created to address this challenge. It provides strict and lenient coercion helpers that slot directly into tidyverse pipelines, helping analysts transform messy inputs into reliable numeric, date, logical, and datetime formats.
+
+## Why a vignette?
+
+This vignette is not just a function catalog. It’s a narrative:  
+- **Idea** → messy, inconsistent data types are a universal pain point.  
+- **Why** → solid data types are the foundation of trustworthy analytics, reproducible research, and preparing prompts for **LLM orchestration**.  
+- **How** → typecleanR provides lightweight, tidyverse‑friendly helpers to clean types without heavy boilerplate.
+
+## Preparing prompts for LLM orchestration
+
+When working with large language models, inconsistent data types don’t just cause technical errors — they increase the risk of **hallucinations** and weaken guardrails. By curating a **golden enriched dataset** with consistent variable types, you give the LLM a structured foundation:  
+- Prompts are clearer and more reliable.  
+- Responses are grounded in consistent context.  
+- Guardrails are easier to enforce, since the model sees predictable inputs.  
+
+In short: **clean types = stronger prompts = safer orchestration.**
+
+## The `toy_data` dataset
+
+To make examples concrete, the package ships with a small built‑in tibble called **`toy_data`**.  
+
+- It contains deliberately messy columns: numbers stored as text, dates in mixed formats, and logical flags in inconsistent forms.  
+- The rationale is simple: **real datasets are messy**, and a toy dataset that mimics those quirks makes it easy to demonstrate strict vs lenient coercion side‑by‑side.  
+- By experimenting with `toy_data`, users can see how each helper function behaves before applying them to their own projects.
+
+---
+
+# The Problem
+
+Real data is often messy:
+
+```{r}
+toy_df
+```
+
+---
+
+# One-Step Cleaning
+
+The easiest way is using the main function:
+
+```{r}
+clean_types(toy_df)
+```
+
+---
+
+# What Changed?
+
+- `Cost_Basis` stayed character (contains "Gain")  
+- `Sale_date` → `POSIXct`  
+- `Flag` → `logical`  
+- `Quantity` stayed numeric  
+- `Notes` stayed character  
+
+---
+
+# Using Individual Functions
+
+You can also use the functions directly for more control:
+
+```{r}
+toy_df %>%
+  mutate(
+    Cost_Basis = as_numeric_if_all(Cost_Basis),
+    Sale_date  = as_datetime_lenient(Sale_date),
+    Flag       = as_logical_if_all(Flag)
+  )
+```
+
+---
+
+# Typical Workflow
+
+```{r}
+toy_df %>%
+  clean_types() %>%
+  filter(!is.na(Sale_date)) %>%
+  group_by(Flag) %>%
+  summarise(
+    count = n(),
+    avg_quantity = mean(Quantity, na.rm = TRUE)
+  )
+```
+
+---
+
+# Available Functions
+
+| Function                  | Purpose                              | When to use                     |
+|---------------------------|--------------------------------------|---------------------------------|
+| `clean_types()`           | Main all-in-one function             | Most common use case            |
+| `as_numeric_if_all()`     | Safe numeric conversion              | When column should be numbers   |
+| `as_date_if_all()`        | Strict date conversion               | Known date format               |
+| `as_logical_if_all()`     | Logical (Yes/No/T/F etc.)            | Flag / indicator columns        |
+| `as_datetime_lenient()`   | Forgiving datetime parser            | Very messy dates                |
+
+---
+
+# Why use typecleanR?
+
+- Conservative and safe by default  
+- No unexpected type guessing  
+- Works beautifully inside `dplyr` pipelines  
+- Strengthens **LLM orchestration** by reducing hallucinations and enforcing guardrails with consistent variable types  
+
+---
+
+# Conclusion
+
+The **typecleanR** package is more than a set of coercion helpers. It’s a **foundation for reproducible analytics and safe LLM orchestration**. By cleaning types early, you reduce friction, strengthen guardrails, and unlock workflows where prompts and models operate on consistent, trustworthy data.  
+
+---
+

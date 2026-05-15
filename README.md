@@ -1,84 +1,74 @@
-
 # typecleanR
 
-**A tidyverse-friendly toolkit for smart type cleaning.**
+**typecleanR** is a tidyverse‑friendly toolkit for safely coercing messy columns into consistent numeric, date, logical, and datetime formats. It’s designed for reproducible analytics and preparing prompts for **LLM orchestration** reducing hallucinations and strengthening guardrails with a golden enriched dataset.
 
-Helps analysts quickly transform messy real-world columns into reliable
-`numeric`, `Date`/`POSIXct`, and `logical` formats.
+Helps analysts quickly transform messy real-world columns into reliable `numeric`, `Date`/`POSIXct`, and `logical` formats — **safely and predictably**.
 
-## Installation
+![R](https://img.shields.io/badge/R-276DC3?logo=r&logoColor=white)
+[![GitHub](https://img.shields.io/badge/GitHub-abiyug/typecleanR-blue?logo=github)](https://github.com/abiyug/typecleanR)
 
-``` r
-# Install from GitHub
+## Getting Started
+
+The package ships with a built‑in dataset toy_data that mimics real‑world quirks: numbers stored as text, dates in mixed formats, and logical flags in inconsistent forms.
+
+```r
+# Install the package
 devtools::install_github("abiyug/typecleanR")
-```
 
-## Quick Start
-
-``` r
 library(typecleanR)
 library(dplyr)
 
-# Recommended: one-step cleaning
+# One-line cleaning
 clean_types(toy_df)
 ```
 
-## Example
+## 📊 Example
 
-``` r
-library(typecleanR)
-library(dplyr)
-```
-
-    ## 
-    ## Attaching package: 'dplyr'
-
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
-
-``` r
+```{r}
 toy_df
 ```
 
-    ## # A tibble: 5 × 5
-    ##   Cost_Basis Sale_date  Flag  Quantity Notes
-    ##   <chr>      <chr>      <chr>    <dbl> <chr>
-    ## 1 3363.14    05/08/2026 TRUE        18 Alpha
-    ## 2 2946.65    5/8/2026   FALSE        7 123  
-    ## 3 1971.32    2026-05-08 T            3 Beta 
-    ## 4 <NA>       <NA>       F           NA <NA> 
-    ## 5 Gain       NotADate   Yes         55 Gamma
+**After `clean_types(toy_df)`:**
 
-``` r
-clean_types(toy_df)
+- `Cost_Basis` → stays character (contains "Gain")
+- `Sale_date` → `POSIXct`
+- `Flag` → `logical`
+- `Quantity` → stays numeric
+
+## 📖 Learn More
+
+For a deeper dive, check out the vignette:  
+👉 **[→ Read the full Getting Started Vignette](https://github.com/abiyug/typecleanR/blob/main/doc/typecleanR.html)**  
+*(highly recommended — includes detailed examples and workflows)*
+
+Or open it directly from R:
+
+```r
+# Browse the vignette in your browser (after building docs)
+browseURL("doc/typecleanR.html")
+
+# Or open via R's vignette system
+vignette("typecleanR", package = "typecleanR")
 ```
 
-    ## # A tibble: 5 × 5
-    ##   Cost_Basis Sale_date           Flag  Quantity Notes
-    ##   <chr>      <dttm>              <lgl>    <dbl> <chr>
-    ## 1 3363.14    2026-05-08 00:00:00 TRUE        18 Alpha
-    ## 2 2946.65    2026-05-08 00:00:00 FALSE        7 123  
-    ## 3 1971.32    2026-05-08 00:00:00 TRUE         3 Beta 
-    ## 4 <NA>       NA                  FALSE       NA <NA> 
-    ## 5 Gain       NA                  TRUE        55 Gamma
+The vignette walks through the **problem**, shows **one‑step cleaning**, explains **what changed**, and demonstrates **individual functions** and **typical workflows**.
+
+
 
 ## Main Functions
 
-- **`clean_types(.data)`** — Smart all-in-one cleaner (recommended)
-- `as_numeric_if_all(x)` — Only converts if **all** non-NA values look
-  numeric
-- `as_date_if_all(x, format = "%m/%d/%Y")` — Strict date conversion
-- `as_logical_if_all(x)` — Supports TRUE/FALSE/T/F/Yes/No/Y/N
-- `as_datetime_lenient(x)` — Forgiving datetime parser
+| Function                    | Description                                      | Use Case                     |
+|----------------------------|--------------------------------------------------|------------------------------|
+| `clean_types()`            | All-in-one smart cleaner (recommended)           | Most common                  |
+| `as_numeric_if_all()`      | Safe numeric conversion                          | Financial / measurement data |
+| `as_date_if_all()`         | Strict date conversion                           | Known date formats           |
+| `as_logical_if_all()`      | Flexible logical (Yes/No/T/F etc.)               | Flags & indicators           |
+| `as_datetime_lenient()`    | Forgiving datetime parser                        | Very messy dates             |
 
 ## Philosophy
 
-- Conservative and safe by default  
-- Only converts when confident  
-- Works great with `dplyr::across()` and pipes  
-- Designed for real messy data from Excel, CSVs, etc.
+- **Conservative by default** — never converts unless very confident
+- Works beautifully with `dplyr::across()` and pipes
+- Built for real messy data coming from Excel, CSVs, surveys, etc.
+
+---
