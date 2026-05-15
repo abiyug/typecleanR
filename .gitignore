@@ -5,10 +5,9 @@
 *.Rproj
 .Ruserdata
 
-# Build artifacts
+# Build artifacts (but allow installed vignettes)
 doc/
 Meta/
-inst/doc/
 
 # Temporary files
 README.html
@@ -16,7 +15,7 @@ README.html
 *.md~
 *.Rmd~
 
-# OS files
+# OS
 .DS_Store
 Thumbs.db
 
